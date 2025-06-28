@@ -16,40 +16,6 @@ body {
   flex-direction: column;
 }
 
-/* Header styles */
-.header {
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1rem 0;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-}
-
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.header-logo {
-  transition: transform 0.2s ease;
-}
-
-.header-logo:hover {
-  transform: scale(1.02);
-}
-
-.header h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #2d3748;
-  margin: 0;
-}
-
 /* Main content */
 .main {
   flex: 1;
@@ -60,13 +26,39 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 /* Welcome section */
 .welcome-section {
   text-align: center;
-  margin-bottom: 3rem;
   color: white;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .welcome-section h2 {
@@ -80,26 +72,119 @@ body {
   font-size: 1.2rem;
   opacity: 0.9;
   font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .welcome-logo {
   display: block;
   margin: 0 auto 2rem auto;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 /* Input form */
-.input-form {
-  margin-bottom: 2rem;
+.input-card {
+  animation: slideUp 0.6s ease-out;
 }
 
-.input-group {
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-form {
   display: flex;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  padding: 0.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  gap: 1rem;
+  align-items: flex-start;
+}
+/* Travel plan card */
+.travel-plan-card {
+  animation: fadeIn 0.8s ease-out 0.2s backwards;
+}
+
+.travel-plan-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #4a5568;
+}
+
+.timestamp {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.travel-plan-content {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #2d3748;
+  white-space: pre-wrap;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .welcome-section h2 {
+    font-size: 2rem;
+  }
+
+  .welcome-section p {
+    font-size: 1.1rem;
+  }
+
+  .input-form {
+    flex-direction: column;
+  }
+
+  .input-form button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    padding: 0 1rem;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .welcome-section h2 {
+    font-size: 1.75rem;
+  }
+
+  .welcome-section p {
+    font-size: 1rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .travel-plan-header {
+    color: #e2e8f0;
+  }
+
+  .timestamp {
+    color: #a0aec0;
+  }
+
+  .travel-plan-content {
+    color: #f7fafc;
+  }
 }
 
 .input-field {
