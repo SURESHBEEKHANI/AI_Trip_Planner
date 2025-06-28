@@ -3,7 +3,7 @@ revision = 2
 requires-python = ">=3.13"
 
 [[package]]
-name = "ai-trip-planner-agent"
+name = "ai-trip-planner"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
@@ -24,8 +24,46 @@ dependencies = [
     { name = "uvicorn" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "langchain" },
+    { name = "langchain-community" },
+    { name = "langchain-experimental" },
+    { name = "langchain-google-community" },
+    { name = "langchain-groq" },
+    { name = "langchain-openai" },
+    { name = "langchain-tavily" },
+    { name = "langgraph" },
+    { name = "pydantic" },
+    { name = "python-dotenv" },
+    { name = "requests" },
+    { name = "streamlit" },
+    { name = "uvicorn" },
+]
+
 [package.metadata]
 requires-dist = [
+    { name = "fastapi", specifier = ">=0.115.14" },
+    { name = "httpx", specifier = ">=0.28.1" },
+    { name = "langchain", specifier = ">=0.3.26" },
+    { name = "langchain-community", specifier = ">=0.3.26" },
+    { name = "langchain-experimental", specifier = ">=0.3.4" },
+    { name = "langchain-google-community", specifier = ">=2.0.7" },
+    { name = "langchain-groq", specifier = ">=0.3.4" },
+    { name = "langchain-openai", specifier = ">=0.3.27" },
+    { name = "langchain-tavily", specifier = ">=0.2.4" },
+    { name = "langgraph", specifier = ">=0.5.0" },
+    { name = "pydantic", specifier = ">=2.11.7" },
+    { name = "python-dotenv", specifier = ">=1.1.1" },
+    { name = "requests", specifier = ">=2.32.4" },
+    { name = "streamlit", specifier = ">=1.46.1" },
+    { name = "uvicorn", specifier = ">=0.34.3" },
+]
+
+[package.metadata.requires-dev]
+dev = [
     { name = "fastapi", specifier = ">=0.115.14" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "langchain", specifier = ">=0.3.26" },
