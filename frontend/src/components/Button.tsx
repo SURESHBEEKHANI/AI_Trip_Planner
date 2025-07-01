@@ -6,6 +6,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'small' | 'medium' | 'large';
   isLoading?: boolean;
   icon?: React.ReactNode;
+  fullWidth?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,16 +17,18 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   className = '',
   disabled,
+  fullWidth = false,
   ...props
 }) => {
   return (
     <button
-      className={`button button-${variant} button-${size} ${isLoading ? 'loading' : ''} ${className}`}
+      className={`button button-${variant} button-${size} ${isLoading ? 'loading' : ''} ${fullWidth ? 'full-width' : ''} ${className}`}
       disabled={isLoading || disabled}
+      aria-busy={isLoading}
       {...props}
     >
       {isLoading ? (
-        <span className="loading-spinner" />
+        <span className="loading-spinner" aria-label="Loading" />
       ) : (
         <>
           {icon && <span className="button-icon">{icon}</span>}

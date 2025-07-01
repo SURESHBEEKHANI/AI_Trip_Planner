@@ -92,7 +92,7 @@ function App() {
       <main className="main">
         <div className="container">
           <section className="welcome-section">
-            <h1 className="main-title">AI Travel Agent</h1>
+            <h1 className="main-title"></h1>
             <h2>Welcome to AI Travel Planner</h2>
             <p>Your intelligent companion for creating personalized travel experiences</p>
           </section>

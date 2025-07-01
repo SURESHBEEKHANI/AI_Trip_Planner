@@ -7,6 +7,7 @@ import os
 import datetime
 from dotenv import load_dotenv
 from pydantic import BaseModel
+from Routes.main_router import main_router
 load_dotenv()
 
 app = FastAPI()
@@ -18,6 +19,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(main_router)
+
 class QueryRequest(BaseModel):
     question: str
 
