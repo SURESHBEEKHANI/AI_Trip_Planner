@@ -1,42 +1,49 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from Routes.main_router import main_router
+from agent.agentic_workflow import GraphBuilder
+from utils.save_to_document import save_document
+from starlette.responses import JSONResponse
+import os
+import datetime
+from dotenv import load_dotenv
+from pydantic import BaseModel
+load_dotenv()
 
-# Create FastAPI app
-app = FastAPI(
-    title="AI Trip Planner API",
-    description="An intelligent travel planning API powered by AI agents",
-    version="1.0.0"
-)
+app = FastAPI()
 
-# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure this properly for production
+    allow_origins=["*"],  # set specific origins in prod
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+class QueryRequest(BaseModel):
+    question: str
 
-# Include the main router
-app.include_router(main_router)
+@app.post("/query")
+async def query_travel_agent(query:QueryRequest):
+    try:
+        print(query)
+        graph = GraphBuilder(model_provider="groq")
+        react_app=graph()
+        #react_app = graph.build_graph()
 
-@app.get("/")
-async def root():
-    """Root endpoint to check if the API is running."""
-    return {"message": "AI Trip Planner API is running!", "status": "healthy"}
+        png_graph = react_app.get_graph().draw_mermaid_png()
+        with open("my_graph.png", "wb") as f:
+            f.write(png_graph)
 
-@app.get("/health")
-async def health_check():
-    """Health check endpoint."""
-    return {"status": "healthy", "service": "AI Trip Planner API"}
+        print(f"Graph saved as 'my_graph.png' in {os.getcwd()}")
+        # Assuming request is a pydantic object like: {"question": "your text"}
+        messages={"messages": [query.question]}
+        output = react_app.invoke(messages)
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(
-        app, 
-        host="0.0.0.0", 
-        port=8000, 
-        reload=True,
-        log_level="info"
-    )
+        # If result is dict with messages:
+        if isinstance(output, dict) and "messages" in output:
+            final_output = output["messages"][-1].content  # Last AI response
+        else:
+            final_output = str(output)
+        
+        return {"answer": final_output}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
